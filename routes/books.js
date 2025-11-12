@@ -23,7 +23,7 @@ router.get('/search-result', function (req, res, next) {
     });
 
     // addbooks route
-router.get('/books/addbook', function(req, res, next) {
+router.get('/addbook', function(req, res, next) {
     res.render('addbook'); // renders addbook.ejs
 });
 

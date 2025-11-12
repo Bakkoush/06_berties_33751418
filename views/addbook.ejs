@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bertie's Books Shop</title>
+    <title>Bertie's Books: Add book</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,36 +12,25 @@
         h1 {
             color: teal;
         }
-        h2 {
-            color: #2b7a78;
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            margin-left: 5px;
+        }
+        button {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Bertie's Books Shop</h1>
-    <h2>Here are the books that we sell:</h2>
-    <ul id="bookList"></ul>
+    <h1>Bertie's Books: Add book</h1>
 
-    <script>
-        // Default books if none exist
-        const defaultBooks = [
-            { name: "Brighton Rock", price: "£20.25" },
-            { name: "Brave New World", price: "£25.00" },
-            { name: "Animal Farm", price: "£12.99" },
-            { name: "The 48 Laws of Power", price: "£9.99" },
-            { name: "The Sealed Nectar", price: "£15.99" }
-        ];
-
-        // Load saved books from localStorage or use defaults
-        let books = JSON.parse(localStorage.getItem('books')) || defaultBooks;
-
-        // Display books
-        const bookList = document.getElementById('bookList');
-        books.forEach(book => {
-            const li = document.createElement('li');
-            li.textContent = `${book.name}, ${book.price}`;
-            bookList.appendChild(li);
-        });
-    </script>
+    <form>
+        <label>Book name: <input type="text" name="bookname"></label>
+        <label>Price: <input type="text" name="price"></label>
+        <button type="submit">Add Book</button>
+    </form>
 </body>
 </html>

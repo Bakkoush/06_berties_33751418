@@ -11,7 +11,7 @@ router.get('/about',function(req, res, next){
     res.render('about.ejs')
 });
 
-router.post('/bookadded', function (req, res, next) {
+router.post('/books/bookadded', function (req, res, next) {
     // saving data in database
     let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)"
     // execute sql query
