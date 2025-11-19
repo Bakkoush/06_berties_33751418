@@ -68,7 +68,7 @@ router.get('/login', function (req, res, next) {
 });
 
 
-// --- HANDLE LOGIN ---
+// --- HANDLE LOGIN (With Audit Logging) ---
 router.post('/loggedin', function (req, res, next) {
 
     const username = req.body.username;
@@ -81,6 +81,10 @@ router.post('/loggedin', function (req, res, next) {
 
         // Username not found
         if (result.length === 0) {
+
+            // 🔹 AUDIT FAILED LOGIN
+            db.query("INSERT INTO audit_log (username, status) VALUES (?, 'FAIL')", [username]);
+
             return res.render("login.ejs", { message: "Login failed: Username not found." });
         }
 
@@ -91,14 +95,48 @@ router.post('/loggedin', function (req, res, next) {
             if (err) return next(err);
 
             if (match === true) {
+
+                // 🔹 AUDIT SUCCESSFUL LOGIN
+                db.query("INSERT INTO audit_log (username, status) VALUES (?, 'SUCCESS')", [username]);
+
                 res.send(`
                     <h1>Login Successful</h1>
                     <p>Welcome back, ${result[0].firstName}!</p>
                 `);
+
             } else {
+
+                // 🔹 AUDIT FAILED LOGIN
+                db.query("INSERT INTO audit_log (username, status) VALUES (?, 'FAIL')", [username]);
+
                 res.render("login.ejs", { message: "Login failed: Incorrect password." });
             }
         });
+    });
+});
+
+
+// --- AUDIT LOG PAGE ---
+router.get('/audit', function (req, res, next) {
+
+    const sqlquery = "SELECT * FROM audit_log ORDER BY timestamp DESC";
+
+    db.query(sqlquery, (err, result) => {
+        if (err) return next(err);
+
+        res.render("audit.ejs", { logs: result });
+    });
+});
+
+// --- AUDIT LOG PAGE ---
+router.get('/audit', function (req, res, next) {
+
+    const sqlquery = "SELECT * FROM audit_log ORDER BY timestamp DESC";
+
+    db.query(sqlquery, (err, result) => {
+        if (err) return next(err);
+
+        res.render("audit.ejs", { logs: result });
     });
 });
 

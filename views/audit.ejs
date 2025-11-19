@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audit Log</title>
+</head>
+<body>
+
+<h1>Audit Log</h1>
+
+<table border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Status</th>
+        <th>Timestamp</th>
+    </tr>
+
+    <% logs.forEach(log => { %>
+    <tr>
+        <td><%= log.id %></td>
+        <td><%= log.username %></td>
+        <td><%= log.status %></td>
+        <td><%= log.timestamp %></td>
+    </tr>
+    <% }); %>
+
+</table>
+
+</body>
+</html>

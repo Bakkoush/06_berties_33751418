@@ -1,8 +1,11 @@
 // Import express and ejs
-var express = require ('express')
+var express = require('express')
 var ejs = require('ejs')
 var mysql = require('mysql2');
 const path = require('path')
+
+// 🔹 Load environment variables
+require('dotenv').config();
 
 // Create the express application object
 const app = express()
@@ -18,14 +21,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Define our application-specific data
-app.locals.shopData = {shopName: "Bertie's Books"}
+app.locals.shopData = { shopName: "Bertie's Books" }
 
-// Define the database connection pool
+// 🔹 Define the database connection pool USING ENV VARIABLES
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'berties_books_app',
-    password: 'qwertyuiop',
-    database: 'berties_books',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
