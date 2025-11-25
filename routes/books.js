@@ -79,18 +79,15 @@ router.get('/search_result', function (req, res, next) {
 });
 
 // ------------------------------
-// USER ROUTES (You should REMOVE these here)
+// USER ROUTES
 // ------------------------------
-
-// ⚠️ These do NOT belong in books.js
-// ⚠️ They should be in users.js or main.js instead.
 
 // Login page
 router.get('/users/login', (req, res) => {
     res.render('login.ejs', { message: null });
 });
 
-// List all users (protected)
+// List all users
 router.get('/users/listusers', redirectLogin, (req, res, next) => {
     const sqlquery = "SELECT username, firstName, lastName, email FROM users";
 
