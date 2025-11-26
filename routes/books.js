@@ -1,35 +1,19 @@
 // Create a new router
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 
-// ------------------------------
-// LOGIN ACCESS CONTROL
-// ------------------------------
-const redirectLogin = (req, res, next) => {
-    if (!req.session.userId) {
-        // MUST redirect to full Apache path
-        return res.redirect('/usr/387/users/login');
-    }
-    next();
-};
-
-// ------------------------------
-// BOOK ROUTES
-// ------------------------------
-
-// Public: Search page
+// SEARCH PAGE
 router.get('/search', function(req, res, next){
     res.render("search.ejs");
 });
 
-// Public: Search results (very simple)
+// SEARCH RESULT SIMPLE
 router.get('/search-result', function (req, res, next) {
     res.send("You searched for: " + req.query.keyword);
 });
 
-// Protected: List all books
-router.get('/list', redirectLogin, function(req, res, next) {
+// LIST ALL BOOKS
+router.get('/list', function(req, res, next) {
     let sqlquery = "SELECT * FROM books";
     db.query(sqlquery, (err, result) => {
         if (err) next(err);
@@ -37,13 +21,13 @@ router.get('/list', redirectLogin, function(req, res, next) {
     });
 });
 
-// Protected: Add book form
-router.get('/addbook', redirectLogin, function(req, res, next) {
+// ADD BOOK PAGE
+router.get('/addbook', function(req, res, next) {
     res.render('addbook', { message: null });
 });
 
-// Protected: Handle adding book
-router.post('/bookadded', redirectLogin, (req, res, next) => {
+// ADD BOOK HANDLER
+router.post('/bookadded', (req, res, next) => {
     const name = req.body.bookname;
     const price = req.body.price;
 
@@ -57,7 +41,7 @@ router.post('/bookadded', redirectLogin, (req, res, next) => {
     });
 });
 
-// Public: search by keyword (LIKE search)
+// SEARCH EXACT MATCH
 router.get('/search_result', function (req, res, next) {
     const keyword = req.query.search_text;
 
@@ -76,26 +60,6 @@ router.get('/search_result', function (req, res, next) {
                 results: result
             });
         }
-    });
-});
-
-
-// ------------------------------
-// USER ROUTES (should not be in books router, but keeping functional)
-// ------------------------------
-
-// Login page
-router.get('/users/login', (req, res) => {
-    res.render('login.ejs', { message: null });
-});
-
-// List all users
-router.get('/users/listusers', redirectLogin, (req, res, next) => {
-    const sqlquery = "SELECT username, firstName, lastName, email FROM users";
-
-    db.query(sqlquery, (err, result) => {
-        if (err) next(err);
-        else res.render('listusers.ejs', { users: result });
     });
 });
 

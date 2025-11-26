@@ -4,30 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Bertie's Books</title>
-
-    <!-- Correct path to CSS under /usr/387/public/ -->
-    <link rel="stylesheet" type="text/css" href="/usr/387/public/main.css" />
-
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: teal; }
-        h2 { color: #2b7a78; }
-    </style>
 </head>
 <body>
     <h1>Bertie's Books Shop</h1>
     <h2>Here are the books that we sell:</h2>
 
     <ul>
-        <% if (books.length === 0) { %>
+        <% if (availableBooks.length === 0) { %>
             <li>No books found.</li>
         <% } else { %>
-            <% books.forEach(book => { %>
+            <% availableBooks.forEach(book => { %>
                 <li><%= book.name %>, £<%= book.price %></li>
             <% }) %>
         <% } %>
     </ul>
 
-    <p><a href="/usr/387/">Return to Home</a></p>
 </body>
 </html>
