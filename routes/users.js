@@ -7,7 +7,7 @@ const saltRounds = 10;
 // 🔹 Session redirect middleware
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-        res.redirect('./users/login');
+        res.redirect('./login');
     } else {
         next();
     }
@@ -74,7 +74,7 @@ router.get('/login', function (req, res, next) {
 });
 
 // --- HANDLE LOGIN ---
-router.post('/loggedin', function (req, res, next) {
+router.post('/login', function (req, res, next) {
 
     const username = req.body.username;
     const password = req.body.password;
@@ -101,20 +101,24 @@ router.post('/loggedin', function (req, res, next) {
 
                 db.query("INSERT INTO audit_log (username, status) VALUES (?, 'SUCCESS')", [username]);
 
-                // 🔹 SAVE SESSION HERE
+                // 🔹 SAVE SESSION
                 req.session.userId = username;
 
-                res.redirect('/users/listusers');
+                // 🔹 RENDER LOGGED-IN PAGE WITH USERNAME
+                return res.render("loggedin.ejs", {
+                    username: username       // <— PASS USERNAME TO EJS
+                });
 
             } else {
 
                 db.query("INSERT INTO audit_log (username, status) VALUES (?, 'FAIL')", [username]);
 
-                res.render("login.ejs", { message: "Login failed: Incorrect password." });
+                return res.render("login.ejs", { message: "Login failed: Incorrect password." });
             }
         });
     });
 });
+
 
 // --- AUDIT LOG PAGE (PROTECTED) ---
 router.get('/audit', redirectLogin, function (req, res, next) {
