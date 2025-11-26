@@ -8,6 +8,9 @@ const path = require('path')
 // 🔹 Load environment variables
 require('dotenv').config();
 
+// 🔹 Import express-sanitizer
+const expressSanitizer = require('express-sanitizer');
+
 // Create the express application object
 const app = express()
 const port = 8000
@@ -17,6 +20,9 @@ app.set('view engine', 'ejs')
 
 // Set up the body parser 
 app.use(express.urlencoded({ extended: true }))
+
+// 🔹 Create an input sanitizer (must be AFTER body-parser)
+app.use(expressSanitizer());
 
 // Create a session
 app.use(session({

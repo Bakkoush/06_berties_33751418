@@ -7,6 +7,17 @@
   <body>
     <h1>Register for <%=shopData.shopName%></h1>
 
+    <!--  DISPLAY VALIDATION ERRORS -->
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <div style="color:red; margin-bottom:15px;">
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>
+
     <form method="POST" action="/users/registered">
 
       <p>Username: <input id="username" type="text" name="username" required /></p>

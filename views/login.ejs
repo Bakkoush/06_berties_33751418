@@ -7,6 +7,18 @@
 
 <h1>Login</h1>
 
+<!-- 🔹 Display validation errors -->
+<% if (typeof errors !== "undefined" && errors.length > 0) { %>
+    <div style="color:red;">
+        <ul>
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
+
+<!-- 🔹 Display login failure messages -->
 <% if (message) { %>
     <p style="color:red;"><%= message %></p>
 <% } %>
