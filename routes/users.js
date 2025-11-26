@@ -7,7 +7,7 @@ const saltRounds = 10;
 // 🔹 Session redirect middleware (added as required)
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-        res.redirect('./login');  // User NOT logged in → redirect
+        res.redirect(req.baseUrl + './login');  // User NOT logged in → redirect
     } else {
         next();                   // User logged in → continue
     }
