@@ -4,14 +4,13 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// 🔹 Session redirect middleware
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-        res.redirect('./login');
-    } else {
-        next();
+        return res.redirect('login'); // no leading slash!
     }
+    next();
 };
+
 
 // --- REGISTRATION PAGE ---
 router.get('/register', function (req, res, next) {
