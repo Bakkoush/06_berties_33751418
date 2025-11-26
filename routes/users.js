@@ -30,7 +30,7 @@ router.post('/registered',
             .withMessage('Username must be between 5 and 20 characters'),
 
         check('password')
-            .isLength({ min: 8 })
+            .isLength({ min: 5 })
             .withMessage('Password must be at least 8 characters long')
     ],
     function (req, res, next) {
