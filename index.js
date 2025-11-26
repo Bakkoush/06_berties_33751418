@@ -48,15 +48,15 @@ global.db = db;
 
 // Load the route handlers
 const mainRoutes = require("./routes/main")
-app.use('/usr/387', mainRoutes)
+app.use('/', mainRoutes)
 
 // Load the route handlers for /users
 const usersRoutes = require('./routes/users')
-app.use('/usr/387/users', usersRoutes)
+app.use('/users', usersRoutes)
 
 // Load the route handlers for /books
 const booksRoutes = require('./routes/books')
-app.use('/usr/387/books', booksRoutes)
+app.use('/books', booksRoutes)
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
