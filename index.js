@@ -68,9 +68,13 @@ app.use('/users', usersRoutes);
 const booksRoutes = require('./routes/books');
 app.use('/books', booksRoutes);
 
-// ✅ WEATHER ROUTES — ADD THIS
+// Weather routes
 const weatherRoutes = require('./routes/weather');
 app.use('/weather', weatherRoutes);
+
+// ⭐ API ROUTES (NEW)
+const apiRoutes = require('./routes/api');
+app.use('/api', apiRoutes);
 
 // ------------------------------------
 
