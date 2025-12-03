@@ -52,17 +52,27 @@ const db = mysql.createPool({
 });
 global.db = db;
 
-// Load the route handlers
-const mainRoutes = require("./routes/main")
-app.use('/', mainRoutes)
+// ------------------------------------
+// LOAD ROUTERS
+// ------------------------------------
 
-// Load the route handlers for /users
-const usersRoutes = require('./routes/users')
-app.use('/users', usersRoutes)
+// Main routes (home, about, etc.)
+const mainRoutes = require("./routes/main");
+app.use('/', mainRoutes);
 
-// Load the route handlers for /books
-const booksRoutes = require('./routes/books')
-app.use('/books', booksRoutes)
+// Users routes
+const usersRoutes = require('./routes/users');
+app.use('/users', usersRoutes);
+
+// Books routes
+const booksRoutes = require('./routes/books');
+app.use('/books', booksRoutes);
+
+// ✅ WEATHER ROUTES — ADD THIS
+const weatherRoutes = require('./routes/weather');
+app.use('/weather', weatherRoutes);
+
+// ------------------------------------
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

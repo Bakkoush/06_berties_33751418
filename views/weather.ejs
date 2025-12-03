@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef7ff;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px #ccc;
+        }
+        h1 {
+            text-align: center;
+            color: #003366;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .weather-box {
+            margin-top: 20px;
+            background: #f2f8ff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 90%;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        a {
+            color: #003366;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Weather Checker</h1>
+
+    <!-- Search Form -->
+    <form action="/weather/now" method="GET">
+        <label>Enter a city name:</label><br>
+        <input type="text" name="city" placeholder="e.g. London" required>
+        <br>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    <!-- Error Message -->
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+
+    <!-- Weather Result -->
+    <% if (weather) { %>
+        <div class="weather-box">
+            <h2>Weather in <%= weather.name %></h2>
+            <p><strong>Temperature:</strong> <%= weather.main.temp %>°C</p>
+            <p><strong>Feels Like:</strong> <%= weather.main.feels_like %>°C</p>
+            <p><strong>Humidity:</strong> <%= weather.main.humidity %>%</p>
+            <p><strong>Wind Speed:</strong> <%= weather.wind.speed %> m/s</p>
+            <p><strong>Conditions:</strong> <%= weather.weather[0].description %></p>
+        </div>
+    <% } %>
+
+    <br>
+    <a href="/">Back to Home</a>
+</div>
+
+</body>
+</html>
